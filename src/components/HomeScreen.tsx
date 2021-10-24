@@ -5,7 +5,6 @@ import Image from './assets/bg7-01.jpg';
 import logo from './assets/logo-02.png';
 import axios from 'axios';
 
-// jyoti is the best
 
 
 
