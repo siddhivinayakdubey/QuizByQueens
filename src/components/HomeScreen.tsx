@@ -4,10 +4,6 @@ import '../index.css'
 import Image from './assets/bg7-01.jpg';
 import logo from './assets/logo-02.png';
 import axios from 'axios';
-
-
-
-
 function HomeScreen() {
 
     const [questions, setQuestions] = useState("Loading");
@@ -15,19 +11,37 @@ function HomeScreen() {
     const [responseData , setResponseData] = useState("");
     const [correct , setCorrect] = useState(0);
     const [wrong , setWrong] = useState(0);
+    const url = "https://jservice.io/api/random";
     const checkAnswer = () => {
 
         if( userInput === responseData){
             setCorrect(correct + 1);
+
         }
        else{
            setWrong(wrong + 1);
         }
+
+        axios.get(url).then((response: { data : any; }) => response.data).then((data: {
+        }) => {
+            console.log(data)
+            // @ts-ignore
+
+            setQuestions(data[0].question)
+            // @ts-ignore
+
+            setResponseData(data[0].answer);
+            console.log(responseData);
+        })
+
+        setUserInput("");
+
+
     }
 
     // @ts-ignore
     useEffect(() => {
-        const url = "https://jservice.io/api/random";
+
         setTimeout(() => {
             axios.get(url).then((response: { data : any; }) => response.data).then((data: {
                     }) => {
